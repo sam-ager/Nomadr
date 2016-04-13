@@ -1,0 +1,78 @@
+
+<div class="post">
+
+<h1>Locations Results</h1>
+	  
+		<form onsubmit="confirmInput()">
+			Enter your Location: <input id="searchterm" type="text">
+		</form>
+
+		<button id="search">Search</button>
+      
+      <ul id="results">
+        
+      </ul>
+
+
+		<script>
+
+		// When the new button is clicked, don't reload the page, then run the runSearch function
+		// passing in the location the user put in the text box
+		$("#search").on('click', function(e){
+			e.preventDefault();
+
+		//store their input 
+			var userLoc = $("#searchterm").val();
+
+		//send it to the function with the call to foursquare 
+			runSearch(userLoc);
+		})
+
+
+		function runSearch(userLoc){
+			$("#results").html('');
+			$.ajax({
+				url: 'https://api.foursquare.com/v2/venues/search',
+				data: {
+					near: userLoc, // Uses the user's search query to pull relevant hostels from location
+					limit: 10, //Limit's ammount to 10
+					intent: 'browse',
+					categoryId: '4bf58dd8d48988d1ee931735',
+					client_id: '2YMWDLKHO03GQKJ0UDPSDZ5LJRKJEJNDZG1TXTGSAH3JMXUD',
+					client_secret: 'M1DZ421SKKNYEQBK4A3KC1JRE4QR2SR0PYPVEBPMVBPWLA2P',
+					v: 20151230,
+					m: 'foursquare'
+				}
+			})
+
+			.done(function(response){
+				var hostels = response.response.venues;
+				$.each(hostels, function(key, hostels){
+					var hostelID = hostels.id;
+					var name = hostels.name;
+					var rating = hostels.rating;
+					var address = hostels.location.formattedAddress;
+					var checkin = hostels.stats.checkinsCount;
+
+                    $("#results").append(
+                    	"<ul data-hostel-id='" + hostelID + "' data-hostel-name='"+ name +"' data-address='" + address + "data-checkin'" + checkin + "' > " 
+
+                    			
+			                    	+ name + "<br>" //Displays returned hostels as list
+			                    	+ address + "<br>"  
+			                    	+ checkin + " People Checked In" + "<br>" + "<br>" 
+
+			                    + "</ul>" 
+
+                    	);
+
+				})
+
+			});
+		}
+
+
+
+		</script>
+
+</div>

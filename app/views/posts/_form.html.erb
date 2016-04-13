@@ -1,0 +1,13 @@
+<div class="post">
+	<%= simple_form_for @post do |f| %> <!-- create a post form -->
+		<%= f.input :title %> <!-- Add Title-->
+		<%= f.input :description %> <!-- Add description-->
+		<br/>
+		<%= f.input :image %> <!-- Add image -->
+		<br/>
+		<%= f.button :submit %> <!-- Submit Form -->
+	<% end %>
+
+	<br/>
+	<a href="javascript:history.back()">Cancel</a> <!-- Back Button -->
+</div>

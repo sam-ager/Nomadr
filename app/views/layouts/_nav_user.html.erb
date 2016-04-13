@@ -1,0 +1,89 @@
+<!-- User Navigation-->
+
+
+  
+	<header>
+		<a href="javascript:history.back()">
+			<div id="top-nav-button-left">
+				<%= image_tag("back3.png", :alt => "Message Button",  :class => "button-img") %>
+			</div>
+		</a>
+
+		<a href="#">
+			<input type="text" class="mainsearch" placeholder="Search..." >
+		</a>
+
+
+		<a href="">
+			<div id="top-nav-button-right">
+				<%= link_to image_tag("write3.png", :alt => "Message Button",  :class => "button-img"), new_post_path %>
+			</div>
+		</a>
+
+	</header>	  
+	  
+  
+  <!--Slide Out Menu -->
+	  <nav>
+		<ul>
+			<li>
+				<input type="text" class="navsearch" value="Search...">
+			</li>
+			
+			<a href="/user/<%= current_user.name %>">
+				<li class="user-prof-nav">
+					<% if current_user.avatar.file? %>
+					  <%= image_tag(current_user.avatar.url, :alt => "User Profile",  :class => "nav-prof-photo") %>
+					<% else %>
+					  <%= image_tag("profile.png", :alt => "Profile",  :class => "nav-prof-photo") %>
+					<% end %>
+
+					<p class="nav-prof-name"><%= current_user.name %></p>
+				</li>
+			</a>
+			  
+			<a href="<%= root_path %>">
+				<li>				
+					<%= image_tag("home.png", :alt => "Home",  :class => "slide-button") %>
+					<p class="nav-prof-name">Home</p>
+				</li>
+			</a>				
+			
+			<a href="#">
+				<li>
+					<%= image_tag("local.png", :alt => "Local Area",  :class => "slide-button") %>
+					<p class="nav-prof-name">Local Area</p>
+				</li>
+			</a>
+			
+			<a href="#">
+				<li>
+					<%= image_tag("message.png", :alt => "Messages",  :class => "slide-button") %>
+					<p class="nav-prof-name">Messages</p>
+				</li>
+			</a>
+
+			<a href="#">
+				<li>
+					<%= image_tag("faq.png", :alt => "FAQ",  :class => "slide-button") %>
+					<p class="nav-prof-name">FAQ</p>
+				</li>
+			</a>
+
+			<a href="#">
+				<li>
+					<%= image_tag("settings.png", :alt => "Settings",  :class => "slide-button") %>
+					<p class="nav-prof-name">Settings</p>
+			    </li>		  
+			</a>			
+		</ul>
+		<div class="nav-bottom">
+
+				<div class="logout-btn">
+					<%= link_to "Sign out", destroy_user_session_path, :method => :delete %> 
+				</div>
+			
+		</div>
+	  </nav>
+
+

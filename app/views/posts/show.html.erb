@@ -1,0 +1,62 @@
+
+<div class="post">
+	<% if @post.user.avatar.file? %>
+			  <%= image_tag( @post.user.avatar , :alt => "Profile",  :class => "post-prof-photo") %> <!-- Post the User's profile photo -->
+		<% else %>
+			  <%= image_tag("profile.png", :alt => "Profile",  :class => "post-prof-photo") %> <!-- If no profile photo, post default photo located in assets-->
+	<% end %>
+
+	<a href="/user/<%= @post.user.name %>">
+		<p class="post-username"><%= @post.user.name %></p>  <!-- Post username -->
+	</a>
+		<br>
+	<p class="post-date">Posted <%= time_ago_in_words (@post.created_at) %> ago</p> <!-- Post date of when posted -->
+	
+	<p><%= @post.title %></p> <!-- Post Title-->
+
+		<% if @post.image.file? %>
+			<%= image_tag @post.image.url, :alt => "Post Image",  :class => "post-photo" %> <!-- Post photo attached-->
+		<% else %>
+						<!-- If no photo, show nothing -->
+		<% end %>
+
+		
+
+	<p class="post-text"><%= @post.description %></p> <!-- Show post description -->
+
+		<br>
+			<p><%= @post.comments.count %> Comments</p> <!-- Show how many comments -->
+			<p><%= @post.get_upvotes.size %> Likes</p> <!-- Show how many upvotes -->
+			<p><%= @post.get_downvotes.size %> Dislikes</p> <!-- Show how many downvotes -->
+		<br>
+
+		<a href="#">
+			<div class="post-button-middle"><%= link_to "Like", like_post_path(@post), method: :get %></div> <!-- Like Post -->
+		</a>
+		<a href="">
+			<div class="post-button"><%= link_to "Dislike", dislike_post_path(@post), method: :get %></div> <!-- Dislike Post-->
+		</a>
+		<br>
+			<%= link_to "Edit", edit_post_path(@post) %> <!-- Edit Post-->
+			<br>
+			
+		<br>
+
+		<%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" } %> <!-- Delete Post-->
+</div>
+
+<div class="post">
+	<h2><%= pluralize(@post.comments.count, "Comment") %></h2> <!-- Show ammount of comments, pluralize if more than 1-->
+
+	
+	<%= render 'comments/form' %> <!-- Render the comment form -->
+
+		<% @comments.each do |comment| %>
+			<div class="comment">
+				<p class="username"><%= comment.user.name %></p> <!-- Comment Username-->
+				<p class="content"><%= comment.content %></p> <!-- Comment post-->
+				<p class="post-date">Posted <%= time_ago_in_words (comment.created_at) %> ago</p> <!-- Comment post date-->
+			</div>
+		<% end %>
+						
+</div>

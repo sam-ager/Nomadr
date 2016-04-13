@@ -1,0 +1,53 @@
+
+	
+  <!-- User Post -->
+	<% @posts.each do |post| %> <!-- Shows posts, defined in posts_controller.rb -->
+		<div class="post">
+			<% if post.user.avatar.file? %>
+				<%= image_tag( post.user.avatar , :alt => "Profile",  :class => "post-prof-photo") %> <!-- Post the User's profile photo -->
+			<% else %>
+				<%= image_tag("profile.png", :alt => "Profile",  :class => "post-prof-photo") %> <!-- If no profile photo, post default photo located in assets-->
+			<% end %>
+
+
+			<a href="/user/<%= post.user.name %>">
+				<p class="post-username">
+					<% if post.user.name? %> <!-- Post username -->
+						<%= post.user.name %> 
+					<% else %>
+						User Deleted <!-- If no username, post "User Deleted"-->
+				<% end %>
+			</a>
+				<br>
+			<p class="post-date">Posted <%= time_ago_in_words (post.created_at) %> ago</p> <!-- Post date of when posted -->
+
+			
+			<p><%= link_to post.title, post %></p> <!-- Post Title-->
+
+			<% if post.image.file? %>
+				<%= link_to (image_tag post.image.url, :class => "post-photo"), post %> <!-- Post photo attached-->
+			<% else %>
+						<!-- If no photo, show nothing -->
+			<% end %>
+			
+			
+			<div class= "text-truncate">
+				<p class="post-text"><%= link_to post.description, post %></p> <!-- Links to post page-->
+			</div>
+
+			<br>
+				<p><%= post.comments.count %> Comments</p> <!-- Show how many comments -->
+				<p><%= post.get_upvotes.size %> Likes</p> <!-- Show how many upvotes -->
+				<p><%= post.get_downvotes.size %> Dislikes</p> <!-- Show how many downvotes -->
+			<br>
+		<a href="#">
+			<div class="post-button-middle"><%= link_to "Like", like_post_path(post), method: :get %></div> <!-- Like Post -->
+		</a>
+		<a href="">
+			<div class="post-button"><%= link_to "Dislike", dislike_post_path(post), method: :get %></div> <!-- Dislike Post-->
+		</a>
+				<br>
+		</div>
+	<% end %>
+
+

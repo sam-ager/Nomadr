@@ -1,0 +1,6 @@
+
+<% !if user_signed_in? %> <!-- If user is signed in render below naviagtion-->
+	<%= render '/layouts/bottom_user' %>
+<% else %>
+	<%= render '/layouts/bottom_guest' %>
+<% end %>

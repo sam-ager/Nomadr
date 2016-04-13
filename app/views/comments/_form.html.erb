@@ -1,0 +1,8 @@
+<div class="post">
+	<%= simple_form_for([@post, @post.comments.build]) do |f| %> <!-- Create comment form for post -->
+
+		<%= f.input :content, label: "Write a Comment" %> <!-- Form to write comment -->
+
+		<%= f.button :submit, class: "comment-button" %> <!-- Submit comment -->
+	<% end %>
+</div>
